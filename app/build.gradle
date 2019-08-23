@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply from: "${rootProject.projectDir}/flavors.gradle"
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -21,35 +23,7 @@ android {
         }
     }
 
-    flavorDimensions "environment"
-
-    productFlavors {
-
-        local{
-            applicationId "com.jquiroga.modularflavors.local"
-
-            dimension "environment"
-            buildConfigField "String", "BASE_URL", '"http://local.my-server.com"'
-        }
-
-        development{
-            applicationId "com.jquiroga.modularflavors.development"
-            dimension "environment"
-            buildConfigField "String", "BASE_URL", '"http://dev.my-server.com"'
-        }
-
-        uat{
-            applicationId "com.jquiroga.modularflavors.uat"
-            dimension "environment"
-            buildConfigField "String", "BASE_URL", '"http://qa.my-server.com"'
-        }
-
-        production{
-            dimension "environment"
-            buildConfigField "String", "BASE_URL", '"http://prod.my-server.com"'
-        }
-
-    }
+    with flavorConfig
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

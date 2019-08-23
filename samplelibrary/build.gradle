@@ -1,6 +1,10 @@
 apply plugin: 'com.android.library'
+
 apply plugin: 'kotlin-android-extensions'
+
 apply plugin: 'kotlin-android'
+
+apply from: "${rootProject.projectDir}/flavors.gradle"
 
 android {
     compileSdkVersion 28
@@ -23,31 +27,7 @@ android {
         }
     }
 
-    flavorDimensions "environment"
-
-    productFlavors {
-
-        local{
-            dimension "environment"
-            buildConfigField "String", "SAMPLE_VALUE", '"LOCAL-SAMPLE-VALUE"'
-        }
-
-        development{
-            dimension "environment"
-            buildConfigField "String", "SAMPLE_VALUE", '"DEVELOPMENT-SAMPLE-VALUE"'
-        }
-
-        uat{
-            dimension "environment"
-            buildConfigField "String", "SAMPLE_VALUE", '"UAT-SAMPLE-VALUE"'
-        }
-
-        production{
-            dimension "environment"
-            buildConfigField "String", "SAMPLE_VALUE", '"PRODUCTION-SAMPLE-VALUE"'
-        }
-
-    }
+    with flavorConfig
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
