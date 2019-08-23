@@ -1,19 +1,21 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
+
+
     defaultConfig {
-        applicationId "com.jquiroga.modularflavors"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -26,27 +28,23 @@ android {
     productFlavors {
 
         local{
-            applicationId "com.jquiroga.modularflavors.local"
-
             dimension "environment"
-            buildConfigField "String", "BASE_URL", '"http://local.my-server.com"'
+            buildConfigField "String", "SAMPLE_VALUE", '"LOCAL-SAMPLE-VALUE"'
         }
 
         development{
-            applicationId "com.jquiroga.modularflavors.development"
             dimension "environment"
-            buildConfigField "String", "BASE_URL", '"http://dev.my-server.com"'
+            buildConfigField "String", "SAMPLE_VALUE", '"DEVELOPMENT-SAMPLE-VALUE"'
         }
 
         uat{
-            applicationId "com.jquiroga.modularflavors.uat"
             dimension "environment"
-            buildConfigField "String", "BASE_URL", '"http://qa.my-server.com"'
+            buildConfigField "String", "SAMPLE_VALUE", '"UAT-SAMPLE-VALUE"'
         }
 
         production{
             dimension "environment"
-            buildConfigField "String", "BASE_URL", '"http://prod.my-server.com"'
+            buildConfigField "String", "SAMPLE_VALUE", '"PRODUCTION-SAMPLE-VALUE"'
         }
 
     }
@@ -55,17 +53,18 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
-    implementation project(':samplelibrary')
-    implementation project(':samplelibrary2')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
